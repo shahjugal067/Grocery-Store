@@ -1,10 +1,37 @@
-import { BrowserRouter} from 'react-router-dom'
+import { BrowserRouter, createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from 'react-router-dom'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
+import { Provider } from 'react-redux'
+import store from './redux/features/store.js'
+import Login from './pages/Admin/Auth/Login.jsx'
+import Register from './pages/Admin/Auth/Register.jsx'
+//private route 
+import PrivateRoute from './components/PrivateRoute.jsx'
+import Profile from './pages/User/Profile.jsx'
+import AdminRoute from './pages/Admin/AdminRoute.jsx'
+import UserList from './pages/Admin/UserList.jsx'
+
+
+const router = createBrowserRouter(
+  createRoutesFromElements(<Route path='/' element={<App />}>
+     <Route path='/login' element={<Login/>} />
+     <Route path='/register' element={<Register/>}/>
+
+    <Route path='' element={<PrivateRoute/>}>
+        <Route path='/profile' element={<Profile/>} />
+    </Route>
+   {/* Admin route  */}
+   <Route path='/' element={<AdminRoute/>} >
+   <Route path='/userlist' element={<UserList/>} />
+   </Route>
+  </Route>
+  )
+)
 
 createRoot(document.getElementById('root')).render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+  <Provider store={store}>
+      <RouterProvider router={ router } />
+  </Provider>
+ 
 )
