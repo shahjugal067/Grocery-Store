@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
  
  import { toast } from 'react-toastify'
- import { setCredentials } from '../../../redux/features/Auth/authSlice'
+ import { setCredentials } from '../../redux/features/Auth/authSlice'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { EyeOff, Loader, Mail, User } from 'lucide-react'
-import { useRegisterMutation } from '../../../redux/api/userSlice'
+import { useRegisterMutation } from '../../redux/api/userSlice'
 
 const Register = () => {
 

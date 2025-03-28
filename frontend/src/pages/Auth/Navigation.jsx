@@ -10,8 +10,8 @@ import {
   User,
 } from "lucide-react";
 import { useDispatch,useSelector } from "react-redux";
-import { useLogoutMutation } from "../../../redux/api/userSlice";
-import { logout } from "../../../redux/features/Auth/authSlice";
+import { useLogoutMutation } from "../../redux/api/userSlice";
+import { logout } from "../../redux/features/Auth/authSlice";
 
 
 const Navigation = () => {

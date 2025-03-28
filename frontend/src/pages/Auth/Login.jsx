@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
- import { useLoginMutation } from '../../../redux/api/userSlice'
+ import { useLoginMutation } from '../../redux/api/userSlice'
  import { toast } from 'react-toastify'
- import { setCredentials } from '../../../redux/features/Auth/authSlice'
+ import { setCredentials } from '../../redux/features/Auth/authSlice'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { EyeOff, Loader, Mail } from 'lucide-react'
 

@@ -9,6 +9,7 @@ import { authenticate, authorizeAdmin } from '../middleware/authMiddleware.js';
 const router = express.Router();
 
 router.route('/register').post(signUpUser).get(authenticate,authorizeAdmin,getAllUsers);
+router.route('/').get(authenticate,authorizeAdmin,getAllUsers);
 
 router.post('/login',loginUser);
 router.post('/logout',logoutUser)

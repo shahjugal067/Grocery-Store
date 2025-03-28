@@ -4,13 +4,15 @@ import './index.css'
 import App from './App.jsx'
 import { Provider } from 'react-redux'
 import store from './redux/features/store.js'
-import Login from './pages/Admin/Auth/Login.jsx'
-import Register from './pages/Admin/Auth/Register.jsx'
+import Login from './pages/Auth/Login.jsx'
+
 //private route 
 import PrivateRoute from './components/PrivateRoute.jsx'
 import Profile from './pages/User/Profile.jsx'
 import AdminRoute from './pages/Admin/AdminRoute.jsx'
 import UserList from './pages/Admin/UserList.jsx'
+import Register from './pages/Auth/Register.jsx'
+
 
 
 const router = createBrowserRouter(
