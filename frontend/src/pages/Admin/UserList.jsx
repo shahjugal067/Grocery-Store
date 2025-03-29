@@ -33,6 +33,19 @@ const UserList = () => {
         setEditableUserId(id)
         setEditableUsername(username)
         setEditableUserEmail(email)
+    };
+    const updateHandler = async(id) =>{
+        try {
+            await updateUser({ 
+                id, 
+                username:editableUsername,
+                email:editableUserEmail,
+            })
+            setEditableUserId(null)
+            refetch()
+        } catch (error) {
+            toast.error(error.data.message || error.message)
+        }
     }
 
   return (
@@ -61,8 +74,8 @@ const UserList = () => {
                     <tbody>
                         { users.map(user=>(
                             <tr key={user._id}>
-                                <td className='border px-4 py-2'>{user._id}</td>
-                                <td className='border px-4 py-2'>
+                                <td className=' px-4 py-2'>{user._id}</td>
+                                <td className=' px-4 py-2'>
                                     {editableUserId === user._id ? (
                                         <div className='flex items-center'>
                                             <input type="text" value={editableUsername} onChange={(e)=> setEditableUsername(e.target.value)}

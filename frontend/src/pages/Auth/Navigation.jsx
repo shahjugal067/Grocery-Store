@@ -47,7 +47,7 @@ const Navigation = () => {
     <div
       style={{ zIndex: 999 }}
       className={`${showSidebar ? "hidden" : "flex"} 
-     lg:flex md:hidden sm:hidden flex-col justify-between p-4 text-white bg-black/80 w-[7%] hover:w-[12%]
+     lg:flex md:hidden sm:hidden flex-col justify-between p-2 text-white bg-black/80 w-[4%] hover:w-[12%]
     h-[100vh] fixed `}
       id="navigation-container"
     >
@@ -106,7 +106,7 @@ const Navigation = () => {
           )}
         </button>
         {dropdownOpen && userInfo && (
-          <ul className={`absolute z-10 right-0 mt-2 mr-14 space-y-2 bg-green-400 text-gray-900
+          <ul className={`absolute z-50 -mt-2 space-y-2 bg-green-400 text-gray-900
           ${!userInfo.isAdmin ? '-top-20' : '-top-80'}`}>
             {userInfo.isAdmin && (
               <>

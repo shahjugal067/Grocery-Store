@@ -5,6 +5,7 @@ import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser';
 import connectDB from './config/db.js'
 import userRoutes from './routes/user.route.js'
+import categoryRoutes from './routes/category.route.js'
 dotenv.config();
 
 const app = express()
@@ -17,7 +18,7 @@ app.use(cors())
 app.use(cookieParser())
 
 app.use('/api/users',userRoutes)
-
+app.use('/api/category',categoryRoutes)
 app.get('/', (req, res) => {
     res.send('Hello World!')
 })
