@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import connectDB from './config/db.js'
 import userRoutes from './routes/user.route.js'
 import categoryRoutes from './routes/category.route.js'
+import productRoutes from './routes/product.route.js'
 dotenv.config();
 
 const app = express()
@@ -19,6 +20,8 @@ app.use(cookieParser())
 
 app.use('/api/users',userRoutes)
 app.use('/api/category',categoryRoutes)
+app.use('/api/products',productRoutes);
+
 app.get('/', (req, res) => {
     res.send('Hello World!')
 })
