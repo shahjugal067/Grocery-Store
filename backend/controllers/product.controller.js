@@ -1,4 +1,5 @@
 import Product from "../models/product.model.js";
+import mongoose from "mongoose";
 
 export const addProduct = async(req ,res ) =>{
     try {
@@ -98,6 +99,14 @@ export const fetchProductById = async (req, res) => {
             const products = await Product.find();
             return res.json(products);
         }
+        if(id === 'top'){
+            const products = await Product.find()
+            return res.json(products)
+        }
+        if(id === 'new'){
+            const products = await Product.find()
+            return res.json(products)
+        }
 
         // Ensure id is a valid ObjectId before querying
         if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -123,7 +132,7 @@ export const addProductReview = async (req,res)=>{
         const { rating, comment } = req.body;
 
         const product = await Product.findById(req.params.id)
-        
+
         if(product){
             const alreadyReviewed = product.reviews.find(
                 (r) => r.user.toString() === req.user._id.toString())
@@ -151,4 +160,24 @@ export const addProductReview = async (req,res)=>{
     } catch (error) {
         
     }
-}
+};
+
+export const fetchTopProducts = async (req, res ) =>{
+    try {
+        const products = await Product.find({}).sort({ rating: -1}).limit(4)
+
+        res.json(products)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message:" Server error at fetching top products "})
+    }
+};
+
+export const fetchNewProducts =  async ( req, res) =>{
+    try {
+        const products  = await Product.find().sort({ createdAt: -1}).limit(4)
+    } catch (error) {
+        console.log(error)
+        res.json({ message:" Server error at fetching new products "})
+    }
+};
