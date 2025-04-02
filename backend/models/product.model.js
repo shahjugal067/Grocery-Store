@@ -28,7 +28,7 @@ const  productSchema = new mongoose.Schema({
     },
     image:{
         type:String,
-       
+       required:true,
     },
     brand:{
         type:String,
@@ -39,7 +39,7 @@ const  productSchema = new mongoose.Schema({
         required:true,
     },
     category:{
-        type:ObjectId,
+        type:mongoose.Schema.Types.ObjectId,
         ref:'Category',
         required:true,
     },

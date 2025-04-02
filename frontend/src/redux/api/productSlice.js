@@ -13,16 +13,13 @@ export const productSlice = apiSlice.injectEndpoints({
         }),
 
         getProductById: builder.query({
-            query:(productId) =>({
-                url:`${PRODUCT_URL}/${productId}`,
+            query:(productId) => `${PRODUCT_URL}/${productId}`,
                 providesTags: (result,error,productId)=>[
                     { type: "Product", id: productId },
                 ],
-            }),
-           
          }),
             allProducts: builder.query({
-                query:()=>`${PRODUCT_URL}/allProducts`,           
+                query:()=>`${PRODUCT_URL}/allproducts`,           
         }),
         getProductDetails: builder.query({
             query: (productId)=>({
@@ -36,7 +33,7 @@ export const productSlice = apiSlice.injectEndpoints({
                 method:"POST",
                 body: productData,
             }),
-            invalidatesTags:['Product'],
+            invalidatesTags:["Product"],
         }),
         updateProduct: builder.mutation({
             query: ({productId,formData})=>({

@@ -96,18 +96,17 @@ const Navigation = () => {
             <span className="text-yellow-400">{userInfo.username}</span> 
           ) : ( 
           <>
-
+          <User className="w-5 h-5 text-yellow-400 -mr-2 lg:mr-2 mt-[1rem]" />
           </>
-
           )}
           {userInfo && (
-            <ChevronDown className={`h-5 w-5 mt-1 ml-1 ${dropdownOpen ? "transform rotate-180" : ""}`} />
+            <ChevronDown className={`h-5 w-5 mt-1 ml-1 cursor-pointer ${dropdownOpen ? "transform rotate-180" : ""}`} />
             
           )}
         </button>
         {dropdownOpen && userInfo && (
-          <ul className={`absolute z-50 -mt-2 space-y-2 bg-green-400 text-gray-900
-          ${!userInfo.isAdmin ? '-top-20' : '-top-80'}`}>
+          <ul className={`absolute z-50 ml-4 space-y-1 bg-green-700 text-gray-900
+          ${!userInfo.isAdmin ? 'top-40' : '-top-80'}`}>
             {userInfo.isAdmin && (
               <>
               <li>

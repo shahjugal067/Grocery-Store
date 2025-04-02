@@ -21,7 +21,7 @@ export const addProduct = async(req ,res ) =>{
                 return res.json({ message:"brand is required"})
 
         }
-        const product = new Product({ ...req.fields })
+        const product = new Product({...req.fields })
         await product.save()
         res.json(product)
         
@@ -31,17 +31,33 @@ export const addProduct = async(req ,res ) =>{
     }
 };
 
-export const updateProductDetail = async(req,res)=>{
+export const updateProductDetails = async(req,res)=>{
     try {
-        const { name, description,price, category, brand ,quantity } = req.fields
-        if(!name || !description || !price || !category || !brand || !quantity){
-            return res.json({ message:"All fields are required"})
+        const { name, description, price, category, quantity, brand } = req.fields;
+        
+        // validation
+        switch (true) {
+            case !name:
+                return res.json({ message:"Name is  required"});
+            case !description:
+                return res.json({ message:"description is required"});
+            case !price:
+                return res.json({ message:"price is required"});
+            case !category:
+                return res.json({ message:"category is required"});
+            case !quantity:
+                 return res.json({ message:"quantity is required"});
+            case !brand:
+                return res.json({ message:"brand is required"});
+
         }
-        const product = await Product.findByIdAndUpdate(req.params.id,{...req.fields},{new:true})
-        await product.save()
+        const product = await Product.findByIdAndUpdate(req.params.id,
+            {...req.fields},
+            {new:true});
+        await product.save();
         res.json(product)
     } catch (error) {
-        console.log(error)
+         console.log(error)
     }
 };
 
