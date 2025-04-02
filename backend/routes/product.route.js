@@ -12,10 +12,10 @@ const router = express.Router()
 router.route('/').post(authenticate,authorizeAdmin,formidable(),addProduct)
 router.route('/:id').put(authenticate,authorizeAdmin,formidable(), updateProductDetails)
 router.route('/:id').delete(authenticate,authorizeAdmin,removeProduct);
-router.route('/').get(authenticate,authorizeAdmin,fetchProducts);
+router.route('/').get(fetchProducts);
 router.route('/:id').get(fetchProductById)
 router.route('/allproducts').get(fetchAllProducts);
-router.route('/:id/reviews').post(authenticate,authorizeAdmin,addProductReview)
+router.route('/:id/reviews').post(authenticate,authorizeAdmin,checkId,addProductReview)
 
 router.get('/top',fetchTopProducts)
 

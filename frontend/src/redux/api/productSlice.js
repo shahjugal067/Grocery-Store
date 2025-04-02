@@ -76,7 +76,15 @@ export const productSlice = apiSlice.injectEndpoints({
 });
 
 export const {
-useGetProductByIdQuery, useGetProductsQuery, useGetProductDetailsQuery,useAllProductsQuery,
-useCreateProductMutation,useUpdateProductMutation, useDeleteProductMutation,useGetNewProductsQuery, 
-useGetTopProductsQuery,useCreateReviewMutation,useUploadProductImageMutation,
+useGetProductByIdQuery, 
+useGetProductsQuery, 
+useGetProductDetailsQuery,
+useAllProductsQuery,
+useCreateProductMutation,
+useUpdateProductMutation, 
+useDeleteProductMutation,
+useGetNewProductsQuery, 
+useGetTopProductsQuery,
+useCreateReviewMutation,
+useUploadProductImageMutation,
 }  = productSlice

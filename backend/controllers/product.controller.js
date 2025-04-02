@@ -53,11 +53,14 @@ export const updateProductDetails = async(req,res)=>{
         }
         const product = await Product.findByIdAndUpdate(req.params.id,
             {...req.fields},
-            {new:true});
+            { new: true});
+
         await product.save();
+
         res.json(product)
     } catch (error) {
          console.log(error)
+         res.json("Error in updating Product");
     }
 };
 
@@ -69,7 +72,7 @@ export const removeProduct = async(req,res)=>{
 
     } catch (error) {
         console.log(error)
-        res.json({ message: "server in removing product"})
+        res.json({ message: "server error in removing product"})
     }
 };
 
@@ -83,7 +86,8 @@ export const fetchProducts = async (req, res)=>{
         const count = await Product.countDocuments({...keyword})
         const products = await Product.find({...keyword}).limit(pageSize);
 
-        res.json({ products,
+        res.json({ 
+            products,
             page:1,
             pages: Math.ceil(count / pageSize),
             hasMore: false,
@@ -94,19 +98,7 @@ export const fetchProducts = async (req, res)=>{
     }
 };
 
-
-export const fetchAllProducts = async(req,res)=>{
-    try {
-        const products = await Product.find({}).populate('category')
-        .limit(12).sort({ createdAt: -1});
-
-        res.json(products)
-    } catch (error) {
-        console.log(error)
-        res.status(500).json({ message: "Server erron in fetching all products"})
-    }
-};
-export const fetchProductById = async (req, res) => {
+export const fetchProductById = async (req, res) => {   //32minutes
     try {
         const { id } = req.params;
 
@@ -130,16 +122,30 @@ export const fetchProductById = async (req, res) => {
         }
 
         // Fetch a single product by ID
-        const product = await Product.findById(id);
+        const product = await Product.findById(req.params.id);
 
-        if (!product) {
-            return res.status(404).json({ error: "Product not found" });
+        if (product) {
+            return res.status(200).json(product);
+        }else{
+            res.status(404).json("product not found"); 
         }
 
         res.json(product);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Server error" });
+    }
+};
+
+export const fetchAllProducts = async(req,res)=>{
+    try {
+        const products = await Product.find({}).populate('category')
+        .limit(12).sort({ createdAt: -1});
+
+        res.json(products)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "Server erron in fetching all products"})
     }
 };
 
@@ -191,7 +197,8 @@ export const fetchTopProducts = async (req, res ) =>{
 
 export const fetchNewProducts =  async ( req, res) =>{
     try {
-        const products  = await Product.find().sort({ createdAt: -1}).limit(4)
+        const products  = await Product.find().sort({ _id: -1}).limit(5);
+        res.json(products)
     } catch (error) {
         console.log(error)
         res.json({ message:" Server error at fetching new products "})

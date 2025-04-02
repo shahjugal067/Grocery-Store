@@ -7,6 +7,7 @@ import { useDeleteCategoryMutation,
 import CategoryForm from '../../components/CategoryForm'
 import Model from '../../components/Model'
 const CategoryList = () => {
+  
   const { data: categories } = useFetchCategoriesQuery()
   const [ name, setName ] = useState('')
   const [ selectedCategory, setSelectedCategory ] = useState('')

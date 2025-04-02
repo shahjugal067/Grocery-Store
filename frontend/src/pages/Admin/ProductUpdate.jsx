@@ -8,7 +8,7 @@ import AdminMenu from './AdminMenu'
 const ProductUpdate = () => {
     const navigate = useNavigate()
     const params = useParams()
-
+    
     const {data: productData} = useGetProductByIdQuery(params._id)
 
     const [image,setImage] = useState(productData?.image || '');
@@ -20,7 +20,7 @@ const ProductUpdate = () => {
     const [brand,setBrand] = useState(productData?.brand || '');
     const [stock,setStock] = useState(productData?.stock || '');
 
-    const { data: categories = [] } = useFetchCategoriesQuery()
+    const {  categories } = useFetchCategoriesQuery()
     const [ uploadProductImage ] = useUploadProductImageMutation()
     const [updateProduct ] = useUpdateProductMutation()
     const [deleteProduct ] = useDeleteProductMutation()
@@ -48,10 +48,10 @@ const ProductUpdate = () => {
 
       } catch (error) {
         console.log(error)
-        toast.error("Itme upload failed")
+        toast.error("Item upload failed")
       }
     };
-    const handleSubmit = async(e)=>{
+    const handleUpdate = async(e)=>{
       e.preventDefault()
       try {
         const formData =  new FormData()
@@ -156,18 +156,20 @@ const ProductUpdate = () => {
                   <input type="text" className='p-2 mb-3 w-[20rem] rounded-lg outline-none border border-green-400'
                    value={stock} onChange={(e)=> setStock(e.target.value)} />
                 </div>
-                <div className='ml-6 '>
-                  <label htmlFor="" className='flex'>Category</label>
-                  <select aria-placeholder='Choose Category' onChange={(e)=> setCategory(e.target.value)}
-                   value={category} className='p-2 mb-3 w-[20rem] rounded-lg outline-none border border-green-400'>
-
-                    {categories?.map((c)=>(
-                      <option key={c._id} value={c._id}>{c.name}</option>
-                    ))}
-                  </select>
-                </div>
+               <div className='ml-6'>
+                <label htmlFor="name block">Category</label>
+                <select name="category" id="category" value={category}
+                onChange={(e)=> setCategory(e.target.value)}>
+                  <option value="">Select Category</option>
+                  {categories?.map((c) => (
+                    <option key={c._id} value={c._id}>
+                      {c.name}
+                    </option>
+                  ))}
+                </select>
+               </div>
              </div>
-             <button onClick={handleSubmit}
+             <button onClick={handleUpdate}
              className='bg-green-500 hover:bg-indigo-400 text-white py-2 px-4 rounded-lg cursor-pointer'>
                 Update
               </button>

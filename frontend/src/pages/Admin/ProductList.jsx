@@ -87,7 +87,7 @@ const ProductList = () => {
 
                 <input type="file" name='image' accept='image/*'
                  onChange={uploadFileHandler} 
-                 className={!image ? 'hidden' :'text-red-500'} />
+                 className={!image ? 'hidden' :'text-green-500'} />
               </label>
             </div>
             <div className='p-3 '>
@@ -121,12 +121,13 @@ const ProductList = () => {
             </div>
             <label htmlFor="" className='my-5 flex'>Description</label>
               <textarea type='text' className='p-2 mb-3 bg-[#1010101] border border-green-400 rounded-lg
-               outline-none w-[90%]' onChange={(e)=> setDescription(e.target.value)} value={description}>
+               outline-none w-[95%]' onChange={(e)=> setDescription(e.target.value)} value={description}>
 
                </textarea>
+
                <div className='flex justify-between'>
                   <div>
-                    <label htmlFor="name block">In Stock</label> <br />
+                    <label htmlFor="name block">Count In Stock</label> <br />
                     <input type="text" className='p-2 mb-3 w-[20rem] rounded-lg outline-none border border-green-400'
                      value={stock} onChange={(e)=> setStock(e.target.value)} />
                   </div>

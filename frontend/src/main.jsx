@@ -16,13 +16,16 @@ import CategoryList from './pages/Admin/CategoryList.jsx'
 import ProductList from './pages/Admin/ProductList.jsx'
 import ProductUpdate from './pages/Admin/productUpdate.jsx'
 import AllProducts from './pages/Admin/AllProducts.jsx'
+import Home from './Home.jsx'
 
 
 
 const router = createBrowserRouter(
-  createRoutesFromElements(<Route path='/' element={<App />}>
+  createRoutesFromElements(
+  <Route path='/' element={<App />}>
      <Route path='/login' element={<Login/>} />
      <Route path='/register' element={<Register/>}/>
+      <Route index={true} element={<Home/>} />
 
     <Route path='' element={<PrivateRoute/>}>
         <Route path='/profile' element={<Profile/>} />
@@ -33,7 +36,7 @@ const router = createBrowserRouter(
    <Route path='categorylist' element={<CategoryList/>} />
    <Route path='productlist' element={<ProductList/>} />
    <Route path='allproducts' element={<AllProducts/>}/>
-   <Route path='product/update/:_id' element={<ProductUpdate/>} />
+   <Route path='/product/update/:_id' element={<ProductUpdate/>} />
    </Route>
   </Route>
   )
