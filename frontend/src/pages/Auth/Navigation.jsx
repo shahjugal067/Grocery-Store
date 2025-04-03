@@ -12,6 +12,7 @@ import {
 import { useDispatch,useSelector } from "react-redux";
 import { useLogoutMutation } from "../../redux/api/userSlice";
 import { logout } from "../../redux/features/Auth/authSlice";
+import FavoritesCount from "../Products/FavoritesCount";
 
 
 const Navigation = () => {
@@ -86,7 +87,8 @@ const Navigation = () => {
           <Heart className="w-5 h-5 text-yellow-400 -mr-2 lg:mr-2 mt-[1rem]" />
           <span className="hidden lg:inline mt-[1rem] text-yellow-400">
             Favorite
-          </span>
+          </span>{' '}
+          <FavoritesCount />
         </Link>
       </div>
       <div className="relative">
