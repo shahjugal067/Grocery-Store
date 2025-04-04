@@ -4,7 +4,7 @@ import checkId from '../middleware/checkid.js'
 import { authenticate, authorizeAdmin } from '../middleware/authMiddleware.js';
 import { addProduct,updateProductDetails,removeProduct,fetchProducts,
     fetchProductById,fetchAllProducts, addProductReview,fetchTopProducts,
-    fetchNewProducts,
+    fetchNewProducts,filterProducts,
 } from '../controllers/product.controller.js';
 
 const router = express.Router()
@@ -20,5 +20,6 @@ router.route('/:id/reviews').post(authenticate,checkId,addProductReview)
 router.get('/top',fetchTopProducts)
 
 router.route('/new',fetchNewProducts)
+router.route('/filter-products').post(filterProducts)
 
 export default router

@@ -17,6 +17,7 @@ import FavoritesCount from "../Products/FavoritesCount";
 
 const Navigation = () => {
   const { userInfo } = useSelector(state =>state.auth)
+  const { cartItems } = useSelector(state => state.cart)
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
 
@@ -79,6 +80,15 @@ const Navigation = () => {
           <span className="hidden lg:inline mt-[1rem] text-yellow-400">
             Cart
           </span>
+          <div className="absolute top-2">
+              {cartItems.length > 0 && (
+                <span>
+                  <span className="px-1 text-sm bg-pink-500 rounded-full">
+                    {cartItems.reduce((a, c)=>a + c.qty,0)}
+                  </span>
+                </span>
+              )}
+          </div>
         </Link>
         <Link
           to="/favorite"
@@ -98,7 +108,7 @@ const Navigation = () => {
             <span className="text-yellow-400">{userInfo.username}</span> 
           ) : ( 
           <>
-          <User className="w-5 h-5 text-yellow-400 -mr-2 lg:mr-2 mt-[1rem]" />
+          <User className="w-5 h-5 text-yellow-400 mr-2 lg:mr-2 mt-[1rem]" />
           </>
           )}
           {userInfo && (
@@ -108,7 +118,7 @@ const Navigation = () => {
         </button>
         {dropdownOpen && userInfo && (
           <ul className={`absolute z-50 ml-4 space-y-1 bg-green-700 text-gray-900
-          ${!userInfo.isAdmin ? 'top-40' : '-top-80'}`}>
+          ${!userInfo.isAdmin ? '-top-20' : '-top-80'}`}>
             {userInfo.isAdmin && (
               <>
               <li>

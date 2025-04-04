@@ -1,9 +1,9 @@
 import { Link,useParams } from "react-router-dom"
-import { useGetProductsQuery } from "./redux/api/productSlice"
-import Header from "./components/Header"
+import { useGetProductsQuery } from "../redux/api/productSlice"
+import Header from "../components/Header"
 import { Loader } from "lucide-react"
-import Message from "./components/Message"
-import Product from "./pages/Products/Product"
+import Message from "../components/Message"
+import Product from "./Products/Product"
 
 const Home = () => {
 

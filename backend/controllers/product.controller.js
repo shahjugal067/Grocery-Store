@@ -204,3 +204,19 @@ export const fetchNewProducts =  async ( req, res) =>{
         res.json({ message:" Server error at fetching new products "})
     }
 };
+
+export const filterProducts = async(req,res)=>{
+    try {
+        const { checked, radio } = req.body;
+
+        let args = {}
+        if(checked.length > 0) args.category = checked;
+        if(radio.length > 0) args.price = {$gte: radio[0], $lte:radio[1]};
+
+        const products = await Product.find(args)
+        res.json(products)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message:"server error in filtering products"})
+    }
+}

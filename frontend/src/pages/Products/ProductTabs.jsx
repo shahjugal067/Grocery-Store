@@ -8,7 +8,7 @@ import SmallProduct from './SmallProduct'
 const ProductTabs = ({loadingProductReview, userInfo, submitHandler, rating,
      setRating, comment, setComment, product }) => {
 
-        const {data, isLoading, error } = useGetTopProductsQuery()
+        const {data, isLoading } = useGetTopProductsQuery()
         const [activeTab, setActiveTab] = useState(1)
         if(isLoading){
             return <Loader className='w-5 h-5 text-yellow-500'/>
