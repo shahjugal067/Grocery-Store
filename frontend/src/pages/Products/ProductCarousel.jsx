@@ -32,7 +32,7 @@ const ProductCarousel = () => {
             </Message>
         ) : (
             <Slider {...settings} 
-            className="xl:w-[40rem] lg:w-[40rem] md:w[46rem] sm:w-[30rem] sm:block px-4">
+            className="xl:w-[38rem] lg:w-[38rem] md:w[42rem] sm:w-[28rem] sm:block px-4">
                 {products.map(({image, _id, name, price,quantity, description,brand,createdAt ,numReviews,rating,countInStock})=>(
                     <div key={_id}>
                         <img src={image} alt={name} className="w-full rounded-lg object-cover h-[30rem]" />

@@ -25,19 +25,19 @@ const Cart = () => {
 
   return (
     <div>
-        <div className='container flex justify-around items-start flex-wrap mx-auto ml-8'>
+        <div className='container flex  items-center justify-center flex-wrap mx-auto w-[50rem]  rounded-lg'>
             {cartItems.length === 0 ? (
-                <div>Your cart is empty <Link to='/shop'>
-                    <span>Shop Now </span></Link>
+                <div className='text-2xl text-red-600'>Your cart is empty <Link to='/shop'>
+                    <span className='text-green-600 bg-amber-400 rounded-lg px-2 py-2 hover:bg-amber-600'>Shop Now </span></Link>
                 </div>
             ) : (
                 <>
                 <div className='flex flex-col w-[80%]'>
-                    <h1 className='text-2xl mb-4 text-green-700'>
+                    <h1 className='text-4xl border-b-2 mb-4 text-center text-green-700'>
                         Shopping Cart
                     </h1>
                     {cartItems.map((item)=>(
-                        <div key={item._id} className=' flex items-center mb-2 pb-2'>
+                        <div key={item._id} className=' flex items-center border border-yellow-400 mb-2 p-2'>
                             <div className='w-[5rem] h-[5rem]'>
                                 <img src={item.image} alt={item.name} className='w-full object-cover rounded-lg' />
                             </div>
@@ -50,7 +50,7 @@ const Cart = () => {
                                 <div className='mt-2 text-green-600'>${item.price}</div>
                             </div>
                             <div className='w-24 '>
-                                <select className='w-full p-1 border border-green-400 rounded-lg text-black'
+                                <select className='w-full p-1 border border-green-400 rounded-lg text-black outline-none'
                                  value={item.qty} onChange={(e)=>addToCartHandler(item,Number(e.target.value))}>
                                     {[...Array(item.countInStock).keys()].map((x)=>(
                                         <option key={x+1} value={x+1}>{x+1}</option>
@@ -64,17 +64,17 @@ const Cart = () => {
                             </div>
                         </div>
                     ))}
-                    <div className='mt-8 w-[40rem]'>
-                        <div  className='p-4 rounded-lg'>
-                            <h2 className='text-xl mb-2'>
+                    <div className='mt-8'>
+                        <div  className='p-2 px-10 rounded-lg shadow-lg shadow-sky-500 bg-yellow-200'>
+                            <h2 className='text-xl mb-2 '> 
                                 Items ({cartItems.reduce((acc,item)=> acc + item.qty,0)})
                             </h2>
-                            <div className='text-2xl '>
+                            <div className='text-2xl text-green-600 '>
                             ${ cartItems.reduce((acc,item) => acc + item.price * item.qty,0).toFixed(2) }
                             </div>
                         </div>
                         <button disabled={cartItems.length === 0} onClick={checkoutHandler}
-                         className='bg-emerald-700 hover:bg-emerald-500 mt-4 py-2 px-4 rounded-full text-2xl w-full'>
+                         className='bg-emerald-700  hover:bg-emerald-500 mt-4 py-2 px-4 rounded-lg text-xl'>
                             Proceed to checkout
                         </button>
                     </div>

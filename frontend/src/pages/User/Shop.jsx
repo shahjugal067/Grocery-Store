@@ -27,7 +27,7 @@ const Shop = () => {
   useEffect(() => {
     if (!categoriesQuery.isLoading)
       dispatch(setCategories(categoriesQuery.data || []));
-  }, [categoriesQuery.data, dispatch]);
+  }, [categoriesQuery.data, categoriesQuery.isLoading, dispatch]);
 
   useEffect(() => {
     if (!checked.length || !radio.length) {

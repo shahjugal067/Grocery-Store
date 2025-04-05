@@ -11,7 +11,7 @@ const Home = () => {
     const { data, isLoading, isError } = useGetProductsQuery({ keyword });
     
   return (
-    <div className='border border-red-400'>
+    <div className=' bg-yellow-50 '>
         {!keyword ? <Header/> : null }
 
         {isLoading ? (<Loader/>) : isError ? (<Message variant={'danger'}>
@@ -23,19 +23,19 @@ const Home = () => {
             <h1 className="ml-[20rem] text-3xl ">
               Special Products
             </h1>
-            <Link to='/shop' className="bg-pink-500 rounded-full py-2 px-10 mr-[18rem] ml-[10rem] ">
+            <Link to='/shop' className="bg-emerald-800 rounded-full py-2 px-10 mr-[18rem] ml-[10rem] ">
             Shop Now
             </Link>
               </div>
-              <div>
-            <div className="flex justify-center flex-wrap mt-2">
+              
+            <div className="flex flex-wrap gap-4 ml-20 ">
               {data.products.map((product)=>(
                 <div key={product._id}>
                   <Product product={product} />
                 </div>
               ))}
             </div>
-          </div>
+          
           </>
         )}
     </div>

@@ -186,7 +186,7 @@ export const addProductReview = async (req,res)=>{
 
 export const fetchTopProducts = async (req, res ) =>{
     try {
-        const products = await Product.find({}).sort({ rating: -1}).limit(4)
+        const products = await Product.find({}).sort({ rating: -1}).limit(10)
 
         res.json(products)
     } catch (error) {
@@ -197,7 +197,7 @@ export const fetchTopProducts = async (req, res ) =>{
 
 export const fetchNewProducts =  async ( req, res) =>{
     try {
-        const products  = await Product.find().sort({ _id: -1}).limit(5);
+        const products  = await Product.find().sort({ _id: -1}).limit(10);
         res.json(products)
     } catch (error) {
         console.log(error)
