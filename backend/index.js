@@ -27,8 +27,11 @@ app.use('/api/users',userRoutes)
 app.use('/api/category',categoryRoutes)
 app.use('/api/products',productRoutes);
 app.use('/api/upload',uploadRoutes)
-app.use('api/orders',orderRoutes)
+app.use('/api/orders',orderRoutes)
 
+app.get('/api/config/stripe',(req,res)=>{
+    res.send(process.env.STRIPE_KEY)
+})
 
 const  __dirname = path.resolve();
 app.use('/uploads', express.static(path.join(__dirname + '/uploads')));

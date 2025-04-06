@@ -3,13 +3,13 @@ import Product from "../models/product.model.js";
 // utilities funtions 
 
 function calcPrices(orderItems){
-    const itemsPrice = orderItems.reduce((acc,item)=> acc + item.price * item.qty,0)
+    const itemsPrice = orderItems.reduce((acc,item)=> acc + item.price * item.qty,0);
     const shippingPrice = itemsPrice > 100 ? 0 : 10;
     const taxRate = 0.15 
     const taxPrice = (itemsPrice * taxRate).toFixed(2)
 
     const totalPrice = 
-        itemsPrice + shippingPrice + parseFloat(taxPrice).toFixed(2)
+        (itemsPrice + shippingPrice + parseFloat(taxPrice)).toFixed(2)
     return {
         itemsPrice: itemsPrice.toFixed(2),
         shippingPrice: shippingPrice.toFixed(2),
@@ -31,10 +31,10 @@ export const createOrder = async(req,res)=>{
         })
 
         const dbOrderItems = orderItems.map((itemFromClient)=>{
-            const matchingItemFromDB = itemsFromDB.find((itemsFromDB)=> itemsFromDB._id.toString() === itemFromClient._id.toString())
+            const matchingItemFromDB = itemsFromDB.find((itemFromDB)=> itemFromDB._id.toString() === itemFromClient._id)
 
             if(!matchingItemFromDB){
-                res.status(404).json({ message: "Product not found"})
+                res.status(404).json({ message: "Product not found from client id"})
             }
             return {
                 ...itemFromClient,
@@ -60,4 +60,126 @@ export const createOrder = async(req,res)=>{
     } catch (error) {
         console.log(error)
     }
-}
+};
+
+export const getAllOrders = async(req,res)=>{
+    try {
+        const orders = await Order.find({}).populate('user', "id username" )
+        res.json(orders)
+    } catch (error) {
+        console.log(error)
+    }
+};
+export const getUsersOrders = async(req,res)=>{
+    try {
+        const orders = await Order.find({ user: req.user._id})
+        res.json(orders)
+    } catch (error) {
+        console.log(error)
+         res.status(500).json({ message: "Intenal server error in  get user orders"})
+    }
+};
+export const countTotalOrders = async(req,res)=>{
+    try {
+        const totalOrders = await Order.countDocuments()
+        res.json({ totalOrders })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "Intenal server error in counting orders"})
+    }
+};
+
+export const calculateTotalSales = async(req,res)=>{
+    try {
+        const orders = await Order.find()
+        const totalSales = orders.reduce((sum, order)=> sum + order.totalPrice,0)
+
+        res.json({ totalSales })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "Intenal server error in calculating total sales"})
+    }
+};
+
+export const calculateTotalSalesByDate = async(req,res)=>{
+    try {
+        const salesByDate = await Order.aggregate([
+            {
+                $match:{
+                    isPaid: true,
+                },
+            },
+            {
+                $group:{
+                    _id:{
+                        $dateToString: { format: '%Y-%m-%d', date: '$paidAt'},
+                    },
+                    totalSales:{ $sum: '$totalPrice'}
+                },
+            },
+        ]);
+        res.json(salesByDate);
+        const sortedSalesByDate = salesByDate.sort((a,b)=>
+            new Date(a._id) - new Date(b._id)
+        )
+        res.json(sortedSalesByDate)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "Server error in calculating total sales by date"})
+    }
+};
+
+export const findOrderById = async(req,res)=>{
+    try {
+        const order = await Order.findById(req.params.id).populate('user', " username email" )
+
+        if(order){
+            res.json(order)
+        }else{
+            res.status(404).json({ message:"Order not found"})
+        }
+    } catch (error) {
+        console.log(error)
+    }
+};
+
+export const markOrderAsPaid = async(req,res)=>{
+    try {
+        const order = await Order.findById(req.params.id)
+
+        if(order){
+            order.isPaid = true;
+            order.paidAt = Date.now()
+            order.paymentResult = {
+                id: req.body.id,
+                status: req.body.status,
+                update_time: req.body.update_time,
+                email_address: req.body.email_address
+            }
+            const updateOrder = await order.save()
+            res.status(200).json(updateOrder)
+        }else{
+            res.status(404).json({ message: "Order not found"})
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "Server error in marking order as paid"})
+    }
+};
+
+export const markOrderAsDelivered = async(req,res)=>{
+    try {
+        const order = await Order.findById(req.params.id)
+        if(order){
+            order.isDelivered = true;
+            order.deliveredAt = Date.now()
+            const updatedOrder = await order.save()
+            res.status(201).json(updatedOrder)
+        }else{
+            res.status(404).json({ message: "Order not found"})
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "server error in marking order as delivered"})
+    }
+};
