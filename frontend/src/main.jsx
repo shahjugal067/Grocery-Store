@@ -25,6 +25,8 @@ import Shipping from './pages/Orders/Shipping.jsx'
 import PlaceOrder from './pages/Orders/PlaceOrder.jsx'
 
 import Order from './pages/Orders/Order.jsx'
+import Success from './pages/Orders/Success.jsx'
+import Cancel from './pages/Orders/Cancel.jsx'
 
 
 const router = createBrowserRouter(
@@ -43,6 +45,9 @@ const router = createBrowserRouter(
         <Route path='/shipping' element={<Shipping/>} />
         <Route path='/placeorder' element={<PlaceOrder/>} />
         <Route path='/order/:id' element={<Order/>} />
+        <Route path='/success' element={<Success/>} />
+        <Route path='/cancel' element={<Cancel/>} />
+
     </Route>
    {/* Admin route  */}
    <Route path='/' element={<AdminRoute/>} >

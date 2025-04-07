@@ -10,6 +10,14 @@ export const orderSlice = apiSlice.injectEndpoints({
                 body: order,
             }),
         }),
+        createStripeSession: builder.mutation({
+            query: (orderData) => ({
+              url: `${STRIPE_URL}/create-checkout-session`,
+              method: 'POST',
+              body: orderData,
+            }),
+          }),
+
         getOrderDetails: builder.query({
             query: (id) =>({
                 url: `${ORDER_URL}/${id}`,
@@ -23,11 +31,17 @@ export const orderSlice = apiSlice.injectEndpoints({
                 body: details,
             }),
         }),
-        getStripeKey: builder.query({
-            query: () =>({
-                url: STRIPE_URL,
+        createStripePaymentIntent: builder.mutation({
+            query: (amount) => ({
+              url: '/payment/create-payment-intent',
+              method: 'POST',
+              body: { amount },
             }),
-        }),
+          }),
+          getStripeKey: builder.query({
+            query: () => '/payment/stripe-key',
+          }),
+
         getMyOrders: builder.query({
             query:() =>({
                 url: ORDER_URL + '/mine',
@@ -70,4 +84,6 @@ export const {
     useGetTotalSalesQuery,
     useGetTotalSalesByDateQuery,
     useGetOrdersQuery,
+    useCreateStripeSessionMutation,
+    useCreateStripePaymentIntentMutation,
 } = orderSlice;
