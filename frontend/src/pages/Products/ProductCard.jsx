@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { useDispatch} from 'react-redux'
 import { addToCart } from '../../redux/features/cart/cartSlice'
 import {toast} from 'react-toastify'
@@ -8,6 +8,7 @@ import { ShoppingCart } from 'lucide-react'
 
 
 const ProductCard = ({product}) => {
+    
 
     const dispatch = useDispatch()
 
@@ -53,6 +54,7 @@ const ProductCard = ({product}) => {
                  hover:bg-amber-600 hover:text-white rounded-lg text-center bg-amber-300'>
                 Read More...
                 </Link>
+              
                 <button className='p-2 rounded-lg text-yellow-300 hover:bg-amber-600 '
                 onClick={()=> addToCartHandler(product,1)}>
                     <ShoppingCart className='h-5 w-5' />

@@ -18,9 +18,10 @@ import FavoritesCount from "../Products/FavoritesCount";
 const Navigation = () => {
   const { userInfo } = useSelector(state =>state.auth)
   const { cartItems } = useSelector(state => state.cart)
+  
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
-
+ 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
@@ -81,7 +82,7 @@ const Navigation = () => {
             Cart
           </span>
           <div className="absolute top-2">
-              {cartItems.length > 0 && (
+              {cartItems?.length > 0 && (
                 <span>
                   <span className="px-1 text-sm bg-pink-500 rounded-full">
                     {cartItems.reduce((a, c)=>a + c.qty,0)}

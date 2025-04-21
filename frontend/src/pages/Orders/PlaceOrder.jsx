@@ -71,7 +71,7 @@ const PlaceOrder = () => {
                                     </td>
                                     <td >{item.qty}</td>
                                     <td >{item.price.toFixed(2)}</td>
-                                    <td >{(item.price * item.qty).toFixed(2)}</td>
+                                    <td >$ {(item.price * item.qty).toFixed(2)}</td>
                                 </tr>
                             ))}
                             

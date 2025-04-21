@@ -9,8 +9,8 @@ const Cart = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     
-    const cart = useSelector(state => state.cart);
-    const { cartItems} = cart;
+    const cart = useSelector((state) => state.cart);
+    const { cartItems } = cart;
 
     const addToCartHandler = (product,qty) =>{
         dispatch(addToCart({...product,qty}));
@@ -26,7 +26,7 @@ const Cart = () => {
   return (
     <div>
         <div className='container flex  items-center justify-center flex-wrap mx-auto w-[50rem]  rounded-lg'>
-            {cartItems.length === 0 ? (
+            {(cartItems || []).length === 0 ? (
                 <div className='text-2xl text-red-600'>Your cart is empty <Link to='/shop'>
                     <span className='text-green-600 bg-amber-400 rounded-lg px-2 py-2 hover:bg-amber-600'>Shop Now </span></Link>
                 </div>
@@ -38,7 +38,7 @@ const Cart = () => {
                     </h1>
                     {cartItems.map((item)=>(
                         <div key={item._id} className=' flex items-center border border-yellow-400 mb-2 p-2'>
-                            <div className='w-[5rem] h-[5rem]'>
+                            <div className='w-[5rem] h-[7rem]'>
                                 <img src={item.image} alt={item.name} className='w-full object-cover rounded-lg' />
                             </div>
 

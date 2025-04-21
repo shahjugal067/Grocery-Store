@@ -12,7 +12,7 @@ export const orderSlice = apiSlice.injectEndpoints({
         }),
         createStripeSession: builder.mutation({
             query: (orderData) => ({
-              url: `${STRIPE_URL}/create-checkout-session`,
+              url: '/api/payment/create-checkout-session',
               method: 'POST',
               body: orderData,
             }),
